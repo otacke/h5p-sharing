@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: H5PSHARING\n"
+"POT-Creation-Date: 2019-11-15 15:41+0100\n"
+"PO-Revision-Date: 2019-11-15 15:42+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: class-admin.php\n"
+"X-Poedit-SearchPath-1: h5p-sharing.php\n"
+
+#: class-admin.php:38
+msgid "Copied!"
+msgstr "Kopiert!"
+
+#: class-admin.php:39
+msgid "Copy"
+msgstr "Kopieren"
+
+#: class-admin.php:40
+msgid "Embedding / linking to this content has been disabled in the settings."
+msgstr "Einbetten / Verlinken dieses Inhalts wurde in den Einstellungen deaktiviert."
+
+#: class-admin.php:41
+msgid "The link to the content can't be retrieved."
+msgstr "Der Link konnte nicht ermittelt werden."
+
+#: class-admin.php:42
+msgid "H5P Sharing"
+msgstr "H5P Teilen"

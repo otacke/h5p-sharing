@@ -1,0 +1,68 @@
+.h5p-sharing-box {
+  background: rgba(255, 255, 255, 0.9);
+  float: left;
+  margin-top: 1em;
+  max-width: 960px;
+  width: 100%;
+}
+
+.h5p-sharing-box-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.h5p-sharing-title-container {
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.h5p-sharing-title {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.h5p-sharing-message {
+  color: #999999;
+  margin-left: 0.5em;
+  margin-right: 12px;
+  opacity: 0;
+  transition: visibility 0s linear .25s, opacity .25s linear;
+  visibility: hidden;
+}
+
+.h5p-sharing-embed-link-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.h5p-sharing-title h2 {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0px 12px;
+}
+
+.h5p-sharing-embed-link-field {
+  flex-grow: 1;
+  padding-left: 12px;
+  text-overflow: clip;
+  width: 100%;
+}
+
+.button.h5p-sharing-button-copy {
+  margin-left: 0.5em;
+  margin-right: 12px;
+}
+
+.h5p-sharing-visible {
+  opacity: 1;
+  visibility: visible;
+}
