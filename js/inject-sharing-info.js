@@ -95,7 +95,7 @@
 			buttonCopy.innerHTML = l10n.copy;
 
 			buttonCopy.addEventListener( 'click', function() {
-				var contentField = document.querySelector( '.h5p-sharing-content-field.' + params.selector );
+				var contentField = document.querySelector( '.h5p-sharing-content-field-text.' + params.selector );
 				var range = document.createRange();
 				range.selectNode( contentField );
 				window.getSelection().removeAllRanges();
