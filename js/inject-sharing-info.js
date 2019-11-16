@@ -39,15 +39,17 @@
 	 * Build container row.
 	 * @param {object} params Params.
 	 * @param {string} [params.content=''] Content to display.
+	 * @param {string} [params.contentTitle=''] Content title.
 	 * @param {boolean} [params.keepContent=false] Content to display.
 	 * @param {boolean} [params.showButton=false] True, if button shall be shown.
 	 * @param {string} [params.selector='h5p-sharing-null'] Selector.
 	 * @return {HTMLElement} Container.
 	 */
 	function buildContainer( params ) {
-		var container, contentField, buttonCopy;
+		var container, contentField, contentFieldTitle, contentFieldText, buttonCopy;
 
 		params.content = params.content || '';
+		params.contentTitle = params.contentTitle || '';
 		params.keepContent = params.keepContent || false;
 		params.showButton = params.showButton || false;
 		params.selector = params.selector || 'h5p-sharing-null';
@@ -62,11 +64,25 @@
 		contentField.classList.add( 'h5p-sharing-content-field' );
 		contentField.classList.add( params.selector );
 
+		// Title field
+		contentFieldTitle = document.createElement( 'div' );
+		contentFieldTitle.classList.add( 'h5p-sharing-content-field-title' );
+		contentFieldTitle.classList.add( params.selector );
+		contentFieldTitle.innerHTML = params.contentTitle;
+
+		// Text field
+		contentFieldText = document.createElement( 'div' );
+		contentFieldText.classList.add( 'h5p-sharing-content-field-text' );
+		contentFieldText.classList.add( params.selector );
+
 		if ( params.keepContent ) {
-			contentField.innerHTML = ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable;
+			contentFieldText.innerHTML = ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable;
 		} else {
-			contentField.appendChild( document.createTextNode( ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable ) );
+			contentFieldText.appendChild( document.createTextNode( ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable ) );
 		}
+
+		contentField.appendChild( contentFieldTitle );
+		contentField.appendChild( contentFieldText );
 
 		container.appendChild( contentField );
 
@@ -188,6 +204,7 @@
 			// Build container for embed link
 			sharingBoxContainer.appendChild( buildContainer( {
 				content: embedLink,
+				contentTitle: l10n.directLink,
 				keepContent: true,
 				showButton: embedAllowed,
 				selector: 'embed-link'
@@ -196,6 +213,7 @@
 			// Build container for embed snippet
 			sharingBoxContainer.appendChild( buildContainer({
 				content: embedSnippet,
+				contentTitle: l10n.embedSnippet,
 				keepContent: false,
 				showButton: embedAllowed,
 				selector: 'embed-snippet'

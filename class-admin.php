@@ -37,8 +37,10 @@ class Admin {
 		$l10n                         = (object) [];
 		$l10n->copied                 = __( 'Copied!', 'H5PSHARING' );
 		$l10n->copy                   = __( 'Copy', 'H5PSHARING' );
+		$l10n->directLink             = __( 'Direct link', 'H5PSHARING' );
 		$l10n->embeddingNotAllowed    = __( 'Embedding / linking to this content has been disabled in the settings.', 'H5PSHARING' );
 		$l10n->embedLinkUnretrievable = __( 'The link to the content can\'t be retrieved.', 'H5PSHARING' );
+		$l10n->embedSnippet           = __( 'HTML embed code snippet', 'H5PSHARING' );
 		$l10n->title                  = __( 'H5P Sharing', 'H5PSHARING' );
 
 		// Include scripts and styles
