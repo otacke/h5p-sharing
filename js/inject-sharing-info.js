@@ -7,23 +7,14 @@
 	});
 
 	/**
-   * Retrieve true string from HTML encoded string.
-   * @param {string} input Input string.
-   * @return {string} Output string.
-   */
-  function htmlDecode( input ) {
-    var dparser = new DOMParser().parseFromString(input, 'text/html');
-    return dparser.documentElement.textContent;
-  }
-
-	/**
 	 * Build container for title row.
 	 * @param {string} title Title.
 	 * @param {string} message Message for copied.
 	 * @return {HTMLElement} Title container.
 	 */
-  function buildTitleContainer( title, message ) {
+  function buildTitleContainer() {
 		var titleContainer;
+		var title, message;
 
 		// Title container
 		titleContainer = document.createElement('div');
@@ -54,12 +45,12 @@
 	 * @return {HTMLElement} Container.
 	 */
 	function buildContainer( params ) {
+		var container, contentField, buttonCopy;
+
 		params.content = params.content || '';
 		params.keepContent = params.keepContent || false;
 		params.showButton = params.showButton || false;
 		params.selector = params.selector || 'h5p-sharing-null';
-
-		var container, contentField, buttonCopy;
 
 		// Embed link container
 		container = document.createElement('div');
@@ -114,17 +105,54 @@
 		}
 	}
 
+	/**
+	 * Build embed link.
+	 * @param {object} h5pContentData H5P data from H5PIntegration.
+	 * @return {string} Embed link.
+	 */
+	function buildEmbedLink( h5pContentData ) {
+		var embedCode = h5pContentData.embedCode || '';
+		var embedLink = RegExp( 'src="(.+id=[0-9]+)"', 'g' ).exec( embedCode );
+		embedLink = ( 1 > embedLink.length ) ?
+			'' :
+			'<a href="' + embedLink[1] + '" target="_blank">' + embedLink[1] + '</a>';
+
+		return embedLink;
+	}
+
+	/**
+	 * Build embed snippet.
+	 * @param {object} h5pContentData H5P data from H5PIntegration.
+	 * @return {string} Embed snippet.
+	 */
+	function buildEmbedSnippet( h5pContentData ) {
+		var width = '';
+		var height = '';
+		var embedCode = h5pContentData.embedCode || '';
+		var resizeCode = h5pContentData.resizeCode || '';
+
+		var embedSnippet = embedCode + resizeCode;
+
+		var iframe = document.querySelector( '#h5p-iframe-' + contentId );
+		if ( iframe ) {
+			width = iframe.parentNode.offsetWidth || '';
+			height = iframe.parentNode.offsetHeight || '';
+		}
+
+		embedSnippet = embedSnippet
+			.replace( ':w', width )
+			.replace( ':h', height );
+
+		return embedSnippet;
+	}
+
   document.onreadystatechange = function() {
 		var sharingBox, sharingBoxContainer;
 		var title, message;
 
-		var embedCode, resizeCode, embedAllowed;
+		var embedAllowed;
 		var embedLink    = l10n.embeddingNotAllowed;
 		var embedSnippet =  l10n.embeddingNotAllowed;
-
-		var iframe;
-		var width = '';
-		var height = '';
 
 		var h5pContentData;
 		var h5pContentWrapper;
@@ -148,32 +176,16 @@
 				false;
 
 			if ( embedAllowed ) {
-				// TODO: Put in separate functions
-				embedCode = h5pContentData.embedCode || '';
-				resizeCode = h5pContentData.resizeCode || '';
-
-				embedLink = RegExp( 'src="(.+id=[0-9]+)"', 'g' ).exec( embedCode );
-				embedLink = ( 1 > embedLink.length ) ?
-					'' :
-					'<a href="' + embedLink[1] + '" target="_blank">' + embedLink[1] + '</a>';
-
-				embedSnippet = embedCode + resizeCode;
-				iframe = document.querySelector( '#h5p-iframe-' + contentId );
-				if ( iframe ) {
-					width = iframe.parentNode.offsetWidth || '';
-					height = iframe.parentNode.offsetHeight || '';
-				}
-
-				embedSnippet = embedSnippet
-					.replace( ':w', width )
-					.replace( ':h', height );
+				embedLink    = buildEmbedLink( h5pContentData );
+				embedSnippet = buildEmbedSnippet( h5pContentData );
 			}
 
 			// Sharing box container
 			sharingBoxContainer = document.createElement( 'div' );
 			sharingBoxContainer.classList.add( 'h5p-sharing-box-container' );
-			sharingBoxContainer.appendChild( buildTitleContainer( title, message ) );
+			sharingBoxContainer.appendChild( buildTitleContainer() );
 
+			// Build container for embed link
 			sharingBoxContainer.appendChild( buildContainer( {
 				content: embedLink,
 				keepContent: true,
@@ -181,6 +193,7 @@
 				selector: 'embed-link'
 			} ) );
 
+			// Build container for embed snippet
 			sharingBoxContainer.appendChild( buildContainer({
 				content: embedSnippet,
 				keepContent: false,
