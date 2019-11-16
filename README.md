@@ -1,5 +1,5 @@
 # H5P Sharing
-This WordPress add some sharing functionality to the [H5P](https://h5p.org) plugin.
+This WordPress plugin adds some sharing functionality to the [H5P](https://h5p.org) plugin.
 
 ## Features
 * When viewing H5P content in the editor, copy a direct link leading to the content to the clipboard.

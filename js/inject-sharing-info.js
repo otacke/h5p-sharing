@@ -28,6 +28,7 @@
 				return;
 			}
 
+			// Check with H5P if embedding is allowed for content
 			embedAllowed = ( h5pContentData.displayOptions ) ?
 				h5pContentData.displayOptions.embed || false :
 				false;
@@ -62,6 +63,7 @@
 			title.innerHTML = '<h2>' + l10n.title + '</h2>'
 			titleContainer.appendChild( title );
 
+			// Message
 			message = document.createElement('div');
 			message.classList.add( 'h5p-sharing-message' );
 			message.innerHTML = l10n.copied;
@@ -78,7 +80,7 @@
 			embedLinkField.innerHTML = ( '' !== embedLink ) ? embedLink : l10n.embedLinkUnretrievable;
 			embedLinkContainer.appendChild( embedLinkField );
 
-				// Copy button
+			// Copy button
 			if ( '' !== embedLink && embedAllowed ) {
 				buttonCopy = document.createElement( 'button' );
 				buttonCopy.classList.add( 'button' );
@@ -102,6 +104,7 @@
 					}, 1500 );
 				});
 
+				// Button should not get focus
 				buttonCopy.addEventListener( 'focus', function() {
 					this.blur();
 				});
