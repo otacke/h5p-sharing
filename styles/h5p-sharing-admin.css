@@ -35,14 +35,6 @@
   visibility: hidden;
 }
 
-.h5p-sharing-embed-link-container {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  padding: 8px 0;
-  width: 100%;
-}
-
 .h5p-sharing-title h2 {
   font-size: 14px;
   line-height: 1.4;
@@ -50,7 +42,15 @@
   padding: 0px 12px;
 }
 
-.h5p-sharing-embed-link-field {
+.h5p-sharing-content-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.h5p-sharing-content-field {
   flex-grow: 1;
   padding-left: 12px;
   text-overflow: clip;
