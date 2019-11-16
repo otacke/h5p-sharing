@@ -28,7 +28,7 @@
 
 .h5p-sharing-message {
   color: #999999;
-  margin-left: 0.5em;
+  margin-left: 1em;
   margin-right: 12px;
   opacity: 0;
   transition: visibility 0s linear .25s, opacity .25s linear;
@@ -58,7 +58,7 @@
 }
 
 .button.h5p-sharing-button-copy {
-  margin-left: 0.5em;
+  margin-left: 1em;
   margin-right: 12px;
 }
 
