@@ -175,22 +175,31 @@
 	}
 
 	/**
+	 * Handle image resizing.
+	 */
+	function handleResize() {
+		if ( this.classList.contains('expanded') ) {
+			this.classList.remove('expanded');
+			this.alt = l10n.clickToEnlarge;
+			this.title = l10n.clickToEnlarge;
+		} else {
+			this.classList.add('expanded');
+			this.alt = l10n.clickToShrink;
+			this.title = l10n.clickToShrink;
+		}
+	}
+
+	/**
 	 * Create SVG image and use img tag to make it downloadable.
 	 * @param {string} inlineSVG Inline SVG.
 	 * @return {HTMLElement} SVG image.
 	 */
 	function buildSVGImage( inlineSVG ) {
-		var codeSVG, codePath, codeRect, imageSVG, alt, title;
+		var codeSVG, codePath, codeRect, imageSVG;
 
 		// Set size for downloadable image
 		inlineSVG = inlineSVG.replace(/width="[0-9]*px"/, 'width="' + svgImageSize + 'px"');
 		inlineSVG = inlineSVG.replace(/height="[0-9]*px"/, 'height="' + svgImageSize + 'px"');
-
-		// Retrieve alt and title
-		alt = RegExp( '<title id="qrcode-title">(.+)<\/title>', 'g' ).exec( inlineSVG );
-		alt = ( alt && alt.length > 0 ) ? alt[1] : 'no alt';
-		title = RegExp( '<description id="qrcode-description">(.+)<\/description>', 'g' ).exec( inlineSVG );
-		title = ( title && title.length > 0 ) ? title[1] : 'no title';
 
 		codeSVG = document.createElement( 'div' );
 		codeSVG.innerHTML = inlineSVG;
@@ -204,8 +213,6 @@
 
 		imageSVG = document.createElement('img');
 		imageSVG.src = 'data:image/svg+xml;base64,' + window.btoa(codeSVG.innerHTML);
-		imageSVG.alt = alt;
-		imageSVG.title = title;
 
 		return imageSVG;
 	};
@@ -216,11 +223,19 @@
 	 * @return {HTMLElement} Image.
 	 */
 	function buildQRCodeImage( payload ) {
+		var image;
 		var code = qrcode( qrcodeTypeNumber, qrcodeErrorCorrection );
 		code.addData( payload );
 		code.make();
 
-		return buildSVGImage( code.createSvgTag( qrcodeCellSize, qrcodeMargin, payload, payload) );
+		image = buildSVGImage( code.createSvgTag( qrcodeCellSize, qrcodeMargin, payload, payload) );
+		image.alt = l10n.clickToEnlarge;
+		image.title = l10n.clickToEnlarge;
+
+		image.addEventListener( 'click', handleResize );
+		image.addEventListener( 'touchstart', handleResize );
+
+		return image;
 	}
 
   document.onreadystatechange = function() {

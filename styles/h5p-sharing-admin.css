@@ -69,9 +69,15 @@
 }
 
 .h5p-sharing-content-field-text.embed-qrcode img {
-    width: 100%;
+  max-width: 100%;
+  min-width: 200px;
+  transition: width, 0.25s;
+  width: 25%;
 }
 
+.h5p-sharing-content-field-text.embed-qrcode img.expanded {
+  width: 100%;
+}
 
 .button.h5p-sharing-button-copy {
   margin-left: 1em;

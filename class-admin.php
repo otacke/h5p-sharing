@@ -35,6 +35,8 @@ class Admin {
 
 		// Set up localization
 		$l10n                         = (object) [];
+		$l10n->clickToEnlarge         = __( 'Click to enlarge', 'H5PSHARING' );
+		$l10n->clickToShrink          = __( 'Click to shrink', 'H5PSHARING' );
 		$l10n->copied                 = __( 'Copied!', 'H5PSHARING' );
 		$l10n->copy                   = __( 'Copy', 'H5PSHARING' );
 		$l10n->directLink             = __( 'Direct link', 'H5PSHARING' );
