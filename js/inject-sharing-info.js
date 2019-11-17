@@ -102,6 +102,7 @@
 			buttonCopy = document.createElement( 'button' );
 			buttonCopy.classList.add( 'button' );
 			buttonCopy.classList.add( 'h5p-sharing-button-copy' );
+			buttonCopy.classList.add( params.selector );
 			buttonCopy.setAttribute( 'type', 'button' );
 			buttonCopy.innerHTML = l10n.copy;
 
