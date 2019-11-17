@@ -178,12 +178,12 @@
 	 * Handle image resizing.
 	 */
 	function handleResize() {
-		if ( this.classList.contains('expanded') ) {
-			this.classList.remove('expanded');
+		if ( this.classList.contains('h5p-sharing-expanded') ) {
+			this.classList.remove('h5p-sharing-expanded');
 			this.alt = l10n.clickToEnlarge;
 			this.title = l10n.clickToEnlarge;
 		} else {
-			this.classList.add('expanded');
+			this.classList.add('h5p-sharing-expanded');
 			this.alt = l10n.clickToShrink;
 			this.title = l10n.clickToShrink;
 		}
