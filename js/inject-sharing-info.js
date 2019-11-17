@@ -292,9 +292,9 @@
 
 			// Build container for qrcode
 			sharingBoxContainer.appendChild( buildContainer({
-				content: buildQRCodeImage( embedLink ),
+				content: embedAllowed ? buildQRCodeImage( embedLink ) : l10n.embeddingNotAllowed,
 				contentTitle: l10n.qrcode,
-				format: 'dom',
+				format: embedAllowed ? 'dom' : 'plain',
 				showButton: false,
 				selector: 'embed-qrcode'
 			} ) );
