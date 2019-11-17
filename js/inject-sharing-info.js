@@ -55,7 +55,7 @@
 	 * @return {HTMLElement} Container.
 	 */
 	function buildContainer( params ) {
-		var container, contentField, contentFieldTitle, contentFieldText, buttonCopy;
+		var container, containerTitle, containerContent, contentField, contentFieldText, buttonCopy;
 
 		params.content = params.content || '';
 		params.contentTitle = params.contentTitle || '';
@@ -68,16 +68,21 @@
 		container.classList.add( 'h5p-sharing-content-container' );
 		container.classList.add( params.selector );
 
+		// Title field
+		containerTitle = document.createElement( 'div' );
+		containerTitle.classList.add( 'h5p-sharing-content-container-title' );
+		containerTitle.classList.add( params.selector );
+		containerTitle.innerHTML = params.contentTitle;
+
+		// Content container
+		containerContent = document.createElement('div');
+		containerContent.classList.add( 'h5p-sharing-content-container-content' );
+		containerContent.classList.add( params.selector );
+
 		// Field with content
 		contentField = document.createElement( 'div' );
 		contentField.classList.add( 'h5p-sharing-content-field' );
 		contentField.classList.add( params.selector );
-
-		// Title field
-		contentFieldTitle = document.createElement( 'div' );
-		contentFieldTitle.classList.add( 'h5p-sharing-content-field-title' );
-		contentFieldTitle.classList.add( params.selector );
-		contentFieldTitle.innerHTML = params.contentTitle;
 
 		// Text field
 		contentFieldText = document.createElement( 'div' );
@@ -92,10 +97,7 @@
 			contentFieldText.innerHTML = ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable;
 		}
 
-		contentField.appendChild( contentFieldTitle );
-		contentField.appendChild( contentFieldText );
-
-		container.appendChild( contentField );
+		containerContent.appendChild( contentFieldText );
 
 		// Copy button
 		if ( '' !== params.content && params.showButton ) {
@@ -127,8 +129,11 @@
 				this.blur();
 			});
 
-			container.appendChild( buttonCopy );
+			containerContent.appendChild( buttonCopy );
 		}
+
+		container.appendChild( containerTitle );
+		container.appendChild( containerContent );
 
 		return container;
 	}
