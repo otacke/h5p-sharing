@@ -285,15 +285,6 @@
 				selector: 'embed-link'
 			} ) );
 
-			// Build container for embed snippet
-			sharingBoxContainer.appendChild( buildContainer({
-				content: embedSnippet,
-				contentTitle: l10n.embedSnippet,
-				format: 'html',
-				showButton: embedAllowed,
-				selector: 'embed-snippet'
-			} ) );
-
 			// Build container for qrcode
 			sharingBoxContainer.appendChild( buildContainer({
 				content: buildQRCodeImage( embedLink ),
@@ -301,6 +292,15 @@
 				format: 'dom',
 				showButton: false,
 				selector: 'embed-qrcode'
+			} ) );
+
+			// Build container for embed snippet
+			sharingBoxContainer.appendChild( buildContainer({
+				content: embedSnippet,
+				contentTitle: l10n.embedSnippet,
+				format: 'html',
+				showButton: embedAllowed,
+				selector: 'embed-snippet'
 			} ) );
 
 			// Sharing box
