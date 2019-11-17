@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5PSHARING\n"
-"POT-Creation-Date: 2019-11-17 16:19+0100\n"
-"PO-Revision-Date: 2019-11-17 16:19+0100\n"
+"POT-Creation-Date: 2019-11-17 16:48+0100\n"
+"PO-Revision-Date: 2019-11-17 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,33 +18,41 @@ msgstr ""
 "X-Poedit-SearchPath-1: h5p-sharing.php\n"
 
 #: class-admin.php:38
+msgid "Click to enlarge"
+msgstr "Anklicken, um zu vergrößern"
+
+#: class-admin.php:39
+msgid "Click to shrink"
+msgstr "Anklicken, um zu verkleinern"
+
+#: class-admin.php:40
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: class-admin.php:39
+#: class-admin.php:41
 msgid "Copy"
 msgstr "Kopieren"
 
-#: class-admin.php:40
+#: class-admin.php:42
 msgid "Direct link"
 msgstr "Direktlink"
 
-#: class-admin.php:41
+#: class-admin.php:43
 msgid "Embedding / linking to this content has been disabled in the settings."
 msgstr "Einbetten / Verlinken dieses Inhalts wurde in den Einstellungen deaktiviert."
 
-#: class-admin.php:42
+#: class-admin.php:44
 msgid "The link to the content can't be retrieved."
 msgstr "Der Link konnte nicht ermittelt werden."
 
-#: class-admin.php:43
+#: class-admin.php:45
 msgid "HTML embed code snippet"
 msgstr "HTML-Codeschnipsel zum Einbetten"
 
-#: class-admin.php:44
+#: class-admin.php:46
 msgid "QR Code"
 msgstr "QR-Code"
 
-#: class-admin.php:45
+#: class-admin.php:47
 msgid "H5P Sharing"
 msgstr "H5P Teilen"
