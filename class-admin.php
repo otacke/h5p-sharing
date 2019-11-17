@@ -41,9 +41,11 @@ class Admin {
 		$l10n->embeddingNotAllowed    = __( 'Embedding / linking to this content has been disabled in the settings.', 'H5PSHARING' );
 		$l10n->embedLinkUnretrievable = __( 'The link to the content can\'t be retrieved.', 'H5PSHARING' );
 		$l10n->embedSnippet           = __( 'HTML embed code snippet', 'H5PSHARING' );
+		$l10n->qrcode                 = __( 'QR Code', 'H5PSHARING' );
 		$l10n->title                  = __( 'H5P Sharing', 'H5PSHARING' );
 
 		// Include scripts and styles
+		wp_enqueue_script( 'QRCode', plugins_url( '/js/qrcode.js', __FILE__ ), array(), H5PSHARING_VERSION );
 		wp_enqueue_script( 'InjectSharingInfo', plugins_url( '/js/inject-sharing-info.js', __FILE__ ), array(), H5PSHARING_VERSION );
 
 		// Pass variables to JavaScript

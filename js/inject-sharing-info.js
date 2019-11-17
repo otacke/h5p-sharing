@@ -1,6 +1,15 @@
 ( function() {
 	'use strict';
 
+	var qrcodeColorBG         = '#ffffff';
+	var qrcodeColorFG         = '#000000';
+	var qrcodeCellSize        = 2;
+	var qrcodeMargin          = 8;
+	var qrcodeTypeNumber      = 0; // 0 = auto sizing; otherwise 1-40, cmp. https://kazuhikoarase.github.io/qrcode-generator/js/demo/
+	var qrcodeErrorCorrection = 'L'; // L (7 %), M (15 %), Q (25 %), H (30 %).
+
+	var svgImageSize = 4096; // Size of downloadable image in px
+
 	// Prepare localization
 	l10n = JSON.parse( l10n, function( key, value ) {
 		return value || '';
@@ -54,12 +63,12 @@
 		params.showButton = params.showButton || false;
 		params.selector = params.selector || 'h5p-sharing-null';
 
-		// Embed link container
+		// Content container
 		container = document.createElement('div');
 		container.classList.add( 'h5p-sharing-content-container' );
 		container.classList.add( params.selector );
 
-		// Field with embed link
+		// Field with content
 		contentField = document.createElement( 'div' );
 		contentField.classList.add( 'h5p-sharing-content-field' );
 		contentField.classList.add( params.selector );
@@ -75,10 +84,12 @@
 		contentFieldText.classList.add( 'h5p-sharing-content-field-text' );
 		contentFieldText.classList.add( params.selector );
 
-		if ( params.keepContent ) {
-			contentFieldText.innerHTML = ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable;
-		} else {
+		if ( 'html' === params.format ) {
 			contentFieldText.appendChild( document.createTextNode( ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable ) );
+		} else if ( 'dom' === params.format ) {
+			contentFieldText.appendChild( params.content );
+		} else {
+			contentFieldText.innerHTML = ( '' !== params.content ) ? params.content : l10n.embedLinkUnretrievable;
 		}
 
 		contentField.appendChild( contentFieldTitle );
@@ -116,9 +127,9 @@
 			});
 
 			container.appendChild( buttonCopy );
-
-			return container;
 		}
+
+		return container;
 	}
 
 	/**
@@ -160,6 +171,55 @@
 			.replace( ':h', height );
 
 		return embedSnippet;
+	}
+
+	/**
+	 * Create SVG image and use img tag to make it downloadable.
+	 * @param {string} inlineSVG Inline SVG.
+	 * @return {HTMLElement} SVG image.
+	 */
+	function buildSVGImage( inlineSVG ) {
+		var codeSVG, codePath, codeRect, imageSVG, alt, title;
+
+		// Set size for downloadable image
+		inlineSVG = inlineSVG.replace(/width="[0-9]*px"/, 'width="' + svgImageSize + 'px"');
+		inlineSVG = inlineSVG.replace(/height="[0-9]*px"/, 'height="' + svgImageSize + 'px"');
+
+		// Retrieve alt and title
+		alt = RegExp( '<title id="qrcode-title">(.+)<\/title>', 'g' ).exec( inlineSVG );
+		alt = ( alt && alt.length > 0 ) ? alt[1] : 'no alt';
+		title = RegExp( '<description id="qrcode-description">(.+)<\/description>', 'g' ).exec( inlineSVG );
+		title = ( title && title.length > 0 ) ? title[1] : 'no title';
+
+		codeSVG = document.createElement( 'div' );
+		codeSVG.innerHTML = inlineSVG;
+
+		// Apply custom colors
+		codePath = codeSVG.querySelector('path');
+		codePath.setAttribute('fill', qrcodeColorFG);
+
+		codeRect = codeSVG.querySelector('rect');
+		codeRect.setAttribute('fill', qrcodeColorBG);
+
+		imageSVG = document.createElement('img');
+		imageSVG.src = 'data:image/svg+xml;base64,' + window.btoa(codeSVG.innerHTML);
+		imageSVG.alt = alt;
+		imageSVG.title = title;
+
+		return imageSVG;
+	};
+
+	/**
+	 * Build QRCode Image.
+	 * @param {string} payload Payload.
+	 * @return {HTMLElement} Image.
+	 */
+	function buildQRCodeImage( payload ) {
+		var code = qrcode( qrcodeTypeNumber, qrcodeErrorCorrection );
+		code.addData( payload );
+		code.make();
+
+		return buildSVGImage( code.createSvgTag( qrcodeCellSize, qrcodeMargin, payload, payload) );
 	}
 
   document.onreadystatechange = function() {
@@ -205,7 +265,6 @@
 			sharingBoxContainer.appendChild( buildContainer( {
 				content: embedLink,
 				contentTitle: l10n.directLink,
-				keepContent: true,
 				showButton: embedAllowed,
 				selector: 'embed-link'
 			} ) );
@@ -214,9 +273,18 @@
 			sharingBoxContainer.appendChild( buildContainer({
 				content: embedSnippet,
 				contentTitle: l10n.embedSnippet,
-				keepContent: false,
+				format: 'html',
 				showButton: embedAllowed,
 				selector: 'embed-snippet'
+			} ) );
+
+			// Build container for qrcode
+			sharingBoxContainer.appendChild( buildContainer({
+				content: buildQRCodeImage( embedLink ),
+				contentTitle: l10n.qrcode,
+				format: 'dom',
+				showButton: false,
+				selector: 'embed-qrcode'
 			} ) );
 
 			// Sharing box

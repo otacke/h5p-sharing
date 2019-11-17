@@ -48,6 +48,7 @@
   flex-direction: row;
   padding: 8px 0;
   width: 100%;
+  word-break: break-all;
 }
 
 .h5p-sharing-content-container:not(:last-child) {
@@ -66,6 +67,11 @@
   font-style: italic;
   margin-bottom: 0.5em;
 }
+
+.h5p-sharing-content-field-text.embed-qrcode img {
+    width: 100%;
+}
+
 
 .button.h5p-sharing-button-copy {
   margin-left: 1em;
