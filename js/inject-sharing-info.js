@@ -249,7 +249,8 @@
 
 		var embedAllowed;
 		var embedLink    = l10n.embeddingNotAllowed;
-		var embedSnippet =  l10n.embeddingNotAllowed;
+		var embedQRCode  = l10n.embeddingNotAllowed;
+		var embedSnippet = l10n.embeddingNotAllowed;
 
 		var h5pContentData;
 		var h5pContentWrapper;
@@ -274,6 +275,7 @@
 
 			if ( embedAllowed ) {
 				embedLink    = buildEmbedLink( h5pContentData );
+				embedQRCode  = buildQRCodeImage( embedLink );
 				embedSnippet = buildEmbedSnippet( h5pContentData );
 			}
 
@@ -292,9 +294,9 @@
 
 			// Build container for qrcode
 			sharingBoxContainer.appendChild( buildContainer({
-				content: embedAllowed ? buildQRCodeImage( embedLink ) : l10n.embeddingNotAllowed,
+				content: embedQRCode,
 				contentTitle: l10n.qrcode,
-				format: embedAllowed ? 'dom' : 'plain',
+				format: ('string' === typeof embedQRCode) ? 'plain' : 'dom',
 				showButton: false,
 				selector: 'embed-qrcode'
 			} ) );
