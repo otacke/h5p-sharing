@@ -3,6 +3,7 @@ This WordPress plugin adds some sharing functionality to the [H5P](https://h5p.o
 
 ## Features
 * When viewing H5P content in the editor, copy a direct link leading to the content to the clipboard.
+* When viewing H5P content in the editor, have a QR Code to directly link to the content.
 * When viewing H5P content in the editor, copy an HTML embed code snippet to the clipboard.
 
 ## Install/Usage
