@@ -5,7 +5,7 @@
  * Text Domain: H5PSHARING
  * Domain Path: /languages
  * Description: Add some sharing functionality to the H5P plugin
- * Version: 0.1
+ * Version: 0.2
  * Author: octofuchs
  * Author URI: https://octofuchs.de
  * License: MIT
@@ -18,7 +18,7 @@ namespace H5PSHARING;
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 if ( ! defined( 'H5PSHARING_VERSION' ) ) {
-	define( 'H5PSHARING_VERSION', '0.1.0' );
+	define( 'H5PSHARING_VERSION', '0.2.0' );
 }
 
 // Includes
