@@ -90,6 +90,10 @@
   width: 25%;
 }
 
+.h5p-sharing-content-field-text.embed-qrcode img:hover {
+  cursor: pointer;
+}
+
 .h5p-sharing-content-field-text.embed-qrcode img.h5p-sharing-expanded {
   width: 100%;
 }
