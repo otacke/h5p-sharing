@@ -3,7 +3,7 @@ Contributors: otacke
 Tags: h5p, QR Code, share
 Requires at least: 4.0
 Tested up to: 5.3
-Stable tag: 0.2
+Stable tag: 0.2.1
 License: MIT
 License URI: https://gitlab.com/octofuchs/h5psharing/blob/master/LICENSE
 
@@ -32,6 +32,10 @@ None yet.
 
 == Changelog ==
 
+= 0.2.1 =
+- Fix styling for IE11 browser.
+- Add pointer on hovering QR Code.
+
 = 0.2 =
 Initial public release.
 
@@ -39,6 +43,9 @@ Initial public release.
 Initial internal release.
 
 == Upgrade Notice ==
+
+= 0.2.1 =
+Upgrade if you use IE11.
 
 = 0.2 =
 Enables you to share a direct link to H5P content more easily.
