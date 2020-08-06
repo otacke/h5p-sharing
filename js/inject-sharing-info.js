@@ -182,7 +182,9 @@
 	/**
 	 * Handle image resizing.
 	 */
-	function handleResize() {
+	function handleResize(event) {
+		event.preventDefault();
+
 		if ( this.classList.contains('h5p-sharing-expanded') ) {
 			this.classList.remove('h5p-sharing-expanded');
 			this.alt = l10n.clickToEnlarge;
