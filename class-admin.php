@@ -15,14 +15,16 @@ class Admin {
 		// Identify what action the H5P plugin is up to
 		$uri = parse_url( $_SERVER['REQUEST_URI'] );
 
-		$destination = array_pop( explode( '/', $uri['path'] ) );
+		$path = explode( '/', $uri['path'] ); // array_pop needs reference
+		$destination = array_pop( $path );
 
 		if ( 'admin.php' !== $destination ) {
 			return; // Not relevant
 		}
 
 		parse_str( $uri['query'], $queries );
-		if ( 'h5p' === $queries['page'] && 'show' === $queries['task'] ) {
+
+		if ( 'h5p' === $queries['page'] && isset( $queries['task'] ) && 'show' === $queries['task'] ) {
 			// View content type $queries['id'] as admin
 			$this->inject_sharing_info( $queries['id'] );
 		}
