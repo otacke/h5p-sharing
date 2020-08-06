@@ -2,8 +2,8 @@
 Contributors: otacke
 Tags: h5p, QR Code, share
 Requires at least: 4.0
-Tested up to: 5.3
-Stable tag: 0.2.1
+Tested up to: 5.5
+Stable tag: 0.2.2
 License: MIT
 License URI: https://gitlab.com/octofuchs/h5psharing/blob/master/LICENSE
 
@@ -31,6 +31,10 @@ None yet.
 1. Get the direct link to H5P content by copying or QR Code.
 
 == Changelog ==
+
+= 0.2.2 =
+- Fix PHP warnings.
+- Stop handling mouse events on touch devices
 
 = 0.2.1 =
 - Fix styling for IE11 browser.
