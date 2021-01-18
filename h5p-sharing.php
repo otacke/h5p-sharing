@@ -61,14 +61,14 @@ function update() {
 /**
  * Load the text domain for internationalization.
  */
-function H5PSHARING_load_plugin_textdomain() {
+function h5psharing_load_plugin_textdomain() {
 	load_plugin_textdomain( 'H5PSHARING', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 
 /**
  * Register custom style for admin area.
  */
-function H5PSHARING_add_admin_styles() {
+function h5psharing_add_admin_styles() {
 	wp_register_style( 'H5PSHARING', plugins_url( '/styles/h5p-sharing-admin.css', __FILE__ ), array(), H5PSHARING_VERSION );
 	wp_enqueue_style( 'H5PSHARING' );
 }
@@ -78,11 +78,11 @@ register_activation_hook( __FILE__, 'H5PSHARING\on_activation' );
 register_deactivation_hook( __FILE__, 'H5PSHARING\on_deactivation' );
 register_uninstall_hook( __FILE__, 'H5PSHARING\on_uninstall' );
 
-add_action( 'plugins_loaded', 'H5PSHARING\H5PSHARING_load_plugin_textdomain' );
+add_action( 'plugins_loaded', 'H5PSHARING\h5psharing_load_plugin_textdomain' );
 add_action( 'plugins_loaded', 'H5PSHARING\update' );
 
 // Custom style for admin area
-add_action( 'admin_enqueue_scripts', 'H5PSHARING\H5PSHARING_add_admin_styles' );
+add_action( 'admin_enqueue_scripts', 'H5PSHARING\h5psharing_add_admin_styles' );
 
 /**
  * Launch.

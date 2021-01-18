@@ -26,17 +26,17 @@
 		var title, message;
 
 		// Title container
-		titleContainer = document.createElement('div');
+		titleContainer = document.createElement( 'div' );
 		titleContainer.classList.add( 'h5p-sharing-title-container' );
 
 		// Title
-		title = document.createElement('div');
+		title = document.createElement( 'div' );
 		title.classList.add( 'h5p-sharing-title' );
-		title.innerHTML = '<h2>' + l10n.title + '</h2>'
+		title.innerHTML = '<h2>' + l10n.title + '</h2>';
 		titleContainer.appendChild( title );
 
 		// Message
-		message = document.createElement('div');
+		message = document.createElement( 'div' );
 		message.classList.add( 'h5p-sharing-message' );
 		message.innerHTML = l10n.copied;
 		titleContainer.appendChild( message );
@@ -64,7 +64,7 @@
 		params.selector = params.selector || 'h5p-sharing-null';
 
 		// Content container
-		container = document.createElement('div');
+		container = document.createElement( 'div' );
 		container.classList.add( 'h5p-sharing-content-container' );
 		container.classList.add( params.selector );
 
@@ -75,7 +75,7 @@
 		containerTitle.innerHTML = params.contentTitle;
 
 		// Content container
-		containerContent = document.createElement('div');
+		containerContent = document.createElement( 'div' );
 		containerContent.classList.add( 'h5p-sharing-content-container-content' );
 		containerContent.classList.add( params.selector );
 
@@ -111,13 +111,14 @@
 			buttonCopy.addEventListener( 'click', function() {
 				var contentField = document.querySelector( '.h5p-sharing-content-field-text.' + params.selector );
 				var range = document.createRange();
+				var message = document.querySelector( '.h5p-sharing-message' );
+
 				range.selectNode( contentField );
 				window.getSelection().removeAllRanges();
 				window.getSelection().addRange( range );
 				document.execCommand( 'copy' );
 				window.getSelection().removeAllRanges();
 
-				var message = document.querySelector( '.h5p-sharing-message' );
 				message.classList.add( 'h5p-sharing-visible' );
 				setTimeout( function() {
 					message.classList.remove( 'h5p-sharing-visible' );
@@ -182,15 +183,15 @@
 	/**
 	 * Handle image resizing.
 	 */
-	function handleResize(event) {
+	function handleResize( event ) {
 		event.preventDefault();
 
-		if ( this.classList.contains('h5p-sharing-expanded') ) {
-			this.classList.remove('h5p-sharing-expanded');
+		if ( this.classList.contains( 'h5p-sharing-expanded' ) ) {
+			this.classList.remove( 'h5p-sharing-expanded' );
 			this.alt = l10n.clickToEnlarge;
 			this.title = l10n.clickToEnlarge;
 		} else {
-			this.classList.add('h5p-sharing-expanded');
+			this.classList.add( 'h5p-sharing-expanded' );
 			this.alt = l10n.clickToShrink;
 			this.title = l10n.clickToShrink;
 		}
@@ -205,21 +206,21 @@
 		var codeSVG, codePath, codeRect, imageSVG;
 
 		// Set size for downloadable image
-		inlineSVG = inlineSVG.replace(/width="[0-9]*px"/, 'width="' + svgImageSize + 'px"');
-		inlineSVG = inlineSVG.replace(/height="[0-9]*px"/, 'height="' + svgImageSize + 'px"');
+		inlineSVG = inlineSVG.replace( /width="[0-9]*px"/, 'width="' + svgImageSize + 'px"' );
+		inlineSVG = inlineSVG.replace( /height="[0-9]*px"/, 'height="' + svgImageSize + 'px"' );
 
 		codeSVG = document.createElement( 'div' );
 		codeSVG.innerHTML = inlineSVG;
 
 		// Apply custom colors
-		codePath = codeSVG.querySelector('path');
-		codePath.setAttribute('fill', qrcodeColorFG);
+		codePath = codeSVG.querySelector( 'path' );
+		codePath.setAttribute( 'fill', qrcodeColorFG );
 
-		codeRect = codeSVG.querySelector('rect');
-		codeRect.setAttribute('fill', qrcodeColorBG);
+		codeRect = codeSVG.querySelector( 'rect' );
+		codeRect.setAttribute( 'fill', qrcodeColorBG );
 
-		imageSVG = document.createElement('img');
-		imageSVG.src = 'data:image/svg+xml;base64,' + window.btoa(codeSVG.innerHTML);
+		imageSVG = document.createElement( 'img' );
+		imageSVG.src = 'data:image/svg+xml;base64,' + window.btoa( codeSVG.innerHTML );
 
 		return imageSVG;
 	};
@@ -235,7 +236,7 @@
 		code.addData( payload );
 		code.make();
 
-		image = buildSVGImage( code.createSvgTag( qrcodeCellSize, qrcodeMargin, payload, payload) );
+		image = buildSVGImage( code.createSvgTag( qrcodeCellSize, qrcodeMargin, payload, payload ) );
 		image.alt = l10n.clickToEnlarge;
 		image.title = l10n.clickToEnlarge;
 
@@ -258,6 +259,7 @@
 		var h5pContentWrapper;
 
     if ( 'complete' === document.readyState ) {
+
 			// Detect if content embedding is allowed
 			h5pContentData = ( H5PIntegration && H5PIntegration.contents && H5PIntegration.contents['cid-' + contentId]) ?
 				H5PIntegration.contents['cid-' + contentId] :
@@ -287,21 +289,21 @@
 			sharingBoxContainer.appendChild( buildTitleContainer() );
 
 			// Build container for embed link
-			sharingBoxContainer.appendChild( buildContainer( {
+			sharingBoxContainer.appendChild( buildContainer({
 				content: embedLink,
 				contentTitle: l10n.directLink,
 				showButton: embedAllowed,
 				selector: 'embed-link'
-			} ) );
+			}) );
 
 			// Build container for qrcode
 			sharingBoxContainer.appendChild( buildContainer({
 				content: embedQRCode,
 				contentTitle: l10n.qrcode,
-				format: ('string' === typeof embedQRCode) ? 'plain' : 'dom',
+				format: ( 'string' === typeof embedQRCode ) ? 'plain' : 'dom',
 				showButton: false,
 				selector: 'embed-qrcode'
-			} ) );
+			}) );
 
 			// Build container for embed snippet
 			sharingBoxContainer.appendChild( buildContainer({
@@ -310,7 +312,7 @@
 				format: 'html',
 				showButton: embedAllowed,
 				selector: 'embed-snippet'
-			} ) );
+			}) );
 
 			// Sharing box
 			sharingBox = document.createElement( 'div' );
