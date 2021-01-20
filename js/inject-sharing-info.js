@@ -155,29 +155,91 @@
 	}
 
 	/**
-	 * Build embed snippet.
+	 * Build embed snippet. Will contain :w/:h as placeholders for width/height.
 	 * @param {object} h5pContentData H5P data from H5PIntegration.
 	 * @return {string} Embed snippet.
 	 */
 	function buildEmbedSnippet( h5pContentData ) {
-		var width = '';
-		var height = '';
 		var embedCode = h5pContentData.embedCode || '';
 		var resizeCode = h5pContentData.resizeCode || '';
 
-		var embedSnippet = embedCode + resizeCode;
+		return embedCode + resizeCode;
+	}
 
-		var iframe = document.querySelector( '#h5p-iframe-' + contentId );
-		if ( iframe ) {
-			width = iframe.parentNode.offsetWidth || '';
-			height = iframe.parentNode.offsetHeight || '';
+	/**
+	 * Wait until H5P iframe has been initialized.
+	 * @param {function} callback Callback when initialized.
+	 * @param {number} interval Time interval between check in ms >= 200.
+	 * @param {number} repeat Number of checks > 0;
+	 */
+	function waitForH5PFrameInitialized( callback, interval, repeat ) {
+		var iframe;
+		var timer;
+
+		if ( 'function' !== typeof callback ) {
+			return;
+		}
+		if ( 'number' !== typeof interval ) {
+			return;
+		}
+		if ( 'number' !== typeof repeat ) {
+			return;
 		}
 
-		embedSnippet = embedSnippet
-			.replace( ':w', width )
-			.replace( ':h', height );
+		if ( 0 >= repeat ) {
+			return; // Too many tries
+		}
 
-		return embedSnippet;
+		// Don't go crazy ...
+		interval = Math.max( 200, interval );
+
+		iframe = document.querySelector( '#h5p-iframe-' + contentId + '.h5p-initialized' );
+		if ( ! iframe ) {
+
+			// Try again in interval ms
+			clearTimeout( timer );
+			timer = setTimeout( function() {
+				waitForH5PFrameInitialized( callback, interval, repeat - 1 );
+			}, interval );
+		}
+
+		// Found initialized H5P iframe
+		callback();
+	}
+
+	/**
+	 * Get size of H5P iframe.
+	 * @return {object} Size.
+	 */
+	function getH5PIframeSize() {
+		var iframe = document.querySelector( '#h5p-iframe-' + contentId );
+
+		if ( iframe ) {
+			return {
+				width: iframe.parentNode.offsetWidth || 0,
+				height: iframe.parentNode.offsetHeight || 0
+			};
+		}
+
+		// Fallback and indicator of a problem
+		return {
+			width: 0,
+			height: 0
+		};
+	}
+
+	/**
+	 * Set snippet iframe size.
+	 */
+	function setSnippetIframeSize() {
+		var size = getH5PIframeSize();
+
+		var snippetTextContainer = document.querySelector( '.h5p-sharing-content-field-text.embed-snippet' );
+		if ( snippetTextContainer ) {
+			snippetTextContainer.innerText = snippetTextContainer.innerText
+				.replace( ':w', size.width )
+				.replace( ':h', size.height );
+		}
 	}
 
 	/**
@@ -320,6 +382,9 @@
 			sharingBox.appendChild( sharingBoxContainer );
 
 			h5pContentWrapper.appendChild( sharingBox );
+
+			// Will for H5P iframe to be inititalized before fetching size
+			waitForH5PFrameInitialized( setSnippetIframeSize, 200, 20 );
     }
   };
 } () );
