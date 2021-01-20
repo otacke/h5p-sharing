@@ -201,6 +201,8 @@
 			timer = setTimeout( function() {
 				waitForH5PFrameInitialized( callback, interval, repeat - 1 );
 			}, interval );
+
+			return;
 		}
 
 		// Found initialized H5P iframe
