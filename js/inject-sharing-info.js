@@ -10,6 +10,8 @@
 
 	var svgImageSize = 4096; // Size of downloadable image in px
 
+	var embedSnippetTemplate;
+
 	// Prepare localization
 	l10n = JSON.parse( l10n, function( key, value ) {
 		return value || '';
@@ -257,7 +259,7 @@
 
 		var snippetTextContainer = document.querySelector( '.h5p-sharing-content-field-text.embed-snippet' );
 		if ( snippetTextContainer ) {
-			snippetTextContainer.innerText = snippetTextContainer.innerText
+			snippetTextContainer.innerText = embedSnippetTemplate
 				.replace( ':w', size.width )
 				.replace( ':h', size.height );
 		}
@@ -333,13 +335,14 @@
 		var sharingBox, sharingBoxContainer;
 		var title, message;
 
+		var h5pContentData;
+		var h5pContentWrapper;
+
 		var embedAllowed;
 		var embedLink    = l10n.embeddingNotAllowed;
 		var embedQRCode  = l10n.embeddingNotAllowed;
-		var embedSnippet = l10n.embeddingNotAllowed;
 
-		var h5pContentData;
-		var h5pContentWrapper;
+		embedSnippetTemplate = l10n.embeddingNotAllowed;
 
     if ( 'complete' === document.readyState ) {
 
@@ -363,7 +366,7 @@
 			if ( embedAllowed ) {
 				embedLink    = buildEmbedLink( h5pContentData );
 				embedQRCode  = buildQRCodeImage( embedLink );
-				embedSnippet = buildEmbedSnippet( h5pContentData );
+				embedSnippetTemplate = buildEmbedSnippet( h5pContentData );
 			}
 
 			// Sharing box container
@@ -390,7 +393,7 @@
 
 			// Build container for embed snippet
 			sharingBoxContainer.appendChild( buildContainer({
-				content: embedSnippet,
+				content: embedSnippetTemplate,
 				contentTitle: l10n.embedSnippet,
 				format: 'html',
 				showButton: embedAllowed,
@@ -405,7 +408,13 @@
 			h5pContentWrapper.appendChild( sharingBox );
 
 			// Will for H5P iframe to be inititalized before fetching size
-			waitForH5PFrameResized( setSnippetIframeSize, 200, 150 );
+			waitForH5PFrameResized( function() {
+				setSnippetIframeSize();
+
+				window.addEventListener( 'resize', function() {
+					setSnippetIframeSize();
+				});
+			}, 200, 150 );
     }
   };
 } () );
