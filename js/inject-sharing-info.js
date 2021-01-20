@@ -167,12 +167,12 @@
 	}
 
 	/**
-	 * Wait until H5P iframe has been initialized.
-	 * @param {function} callback Callback when initialized.
+	 * Wait until H5P iframe has been resized.
+	 * @param {function} callback Callback when resized.
 	 * @param {number} interval Time interval between check in ms >= 200.
 	 * @param {number} repeat Number of checks > 0;
 	 */
-	function waitForH5PFrameInitialized( callback, interval, repeat ) {
+	function waitForH5PFrameResized( callback, interval, repeat ) {
 		var iframe;
 		var timer;
 
@@ -194,12 +194,12 @@
 		interval = Math.max( 200, interval );
 
 		iframe = document.querySelector( '#h5p-iframe-' + contentId + '.h5p-initialized' );
-		if ( ! iframe ) {
+		if ( ! iframe || 1 >= iframe.parentNode.offsetHeight ) {
 
 			// Try again in interval ms
 			clearTimeout( timer );
 			timer = setTimeout( function() {
-				waitForH5PFrameInitialized( callback, interval, repeat - 1 );
+				waitForH5PFrameResized( callback, interval, repeat - 1 );
 			}, interval );
 
 			return;
@@ -215,18 +215,37 @@
 	 */
 	function getH5PIframeSize() {
 		var iframe = document.querySelector( '#h5p-iframe-' + contentId );
+		var iframeDocument;
+		var content;
+		var width, height;
 
-		if ( iframe ) {
+		if ( ! iframe ) {
+
+			// General fallback and indicator of a problem
 			return {
-				width: iframe.parentNode.offsetWidth || 0,
-				height: iframe.parentNode.offsetHeight || 0
+				width: 0,
+				height: 0
 			};
 		}
 
-		// Fallback and indicator of a problem
+		// Fallback for inaccessible iframe
+		width = iframe.parentNode.offsetWidth || 0;
+		height = iframe.parentNode.offsetHeight || 0;
+
+		// Try to access iframe content
+		try {
+			iframeDocument = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
+			content = iframeDocument.querySelector( '.h5p-content' );
+			if ( content ) {
+				width = content.clientWidth;
+				height = content.clientHeight;
+			}
+		}	catch ( error ) {
+		}
+
 		return {
-			width: 0,
-			height: 0
+			width: width,
+			height: height
 		};
 	}
 
@@ -386,7 +405,7 @@
 			h5pContentWrapper.appendChild( sharingBox );
 
 			// Will for H5P iframe to be inititalized before fetching size
-			waitForH5PFrameInitialized( setSnippetIframeSize, 200, 20 );
+			waitForH5PFrameResized( setSnippetIframeSize, 200, 150 );
     }
   };
 } () );
