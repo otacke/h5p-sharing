@@ -195,8 +195,7 @@
 		// Don't go crazy ...
 		interval = Math.max( 200, interval );
 
-		iframe = document.querySelector( '#h5p-iframe-' + contentId + '.h5p-initialized' );
-		if ( ! iframe || 1 >= iframe.parentNode.offsetHeight ) {
+		if ( 1 >= getH5PIframeSize().height ) {
 
 			// Try again in interval ms
 			clearTimeout( timer );
