@@ -11,4 +11,4 @@ Install _H5P Sharing_ from the [Wordpress Plugin directory](https://wordpress.or
 instance and activate it. Done.
 
 ## License
-_H5P Sharing_ is is licensed under the [MIT License](https://gitlab.com/octofuchs/h5psharing/blob/master/LICENSE).
+_H5P Sharing_ is licensed under the [MIT License](https://gitlab.com/octofuchs/h5psharing/blob/master/LICENSE).
