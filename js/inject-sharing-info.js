@@ -12,11 +12,6 @@
 
 	var embedSnippetTemplate;
 
-	// Prepare localization
-	l10n = JSON.parse( l10n, function( key, value ) {
-		return value || '';
-	});
-
 	/**
 	 * Build container for title row.
 	 * @param {string} title Title.
