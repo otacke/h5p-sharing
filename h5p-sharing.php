@@ -5,7 +5,7 @@
  * Text Domain: H5PSHARING
  * Domain Path: /languages
  * Description: Add some sharing functionality to the H5P plugin
- * Version: 0.2.2
+ * Version: 0.2.3
  * Author: Oliver Tacke
  * Author URI: https://snordian.de
  * License: MIT
