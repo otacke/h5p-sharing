@@ -2,7 +2,7 @@
 Contributors: otacke
 Tags: h5p, QR Code, share
 Requires at least: 4.0
-Tested up to: 5.5
+Tested up to: 5.8
 Stable tag: 0.2.2
 License: MIT
 License URI: https://github.com/otacke/h5p-sharing/blob/master/LICENSE
