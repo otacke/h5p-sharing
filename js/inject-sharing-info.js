@@ -12,6 +12,9 @@
 
 	var embedSnippetTemplate;
 
+	// contentId passed by WordPress
+	contentId = Array.isArray( contentId ) ? contentId[0] : '';
+
 	/**
 	 * Build container for title row.
 	 * @param {string} title Title.
