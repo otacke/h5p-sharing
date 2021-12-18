@@ -6,8 +6,8 @@
  * Domain Path: /languages
  * Description: Add some sharing functionality to the H5P plugin
  * Version: 0.2.2
- * Author: octofuchs
- * Author URI: https://octofuchs.de
+ * Author: Oliver Tacke
+ * Author URI: https://snordian.de
  * License: MIT
  * License URI: http://opensource.org/licenses/MIT
  */

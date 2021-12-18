@@ -5,7 +5,7 @@ Requires at least: 4.0
 Tested up to: 5.5
 Stable tag: 0.2.2
 License: MIT
-License URI: https://gitlab.com/octofuchs/h5psharing/blob/master/LICENSE
+License URI: https://github.com/otacke/h5p-sharing/blob/master/LICENSE
 
 This WordPress plugin adds some sharing functionality to the [H5P](https://h5p.org) plugin.
 
